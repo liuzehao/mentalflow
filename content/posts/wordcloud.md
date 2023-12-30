@@ -1,0 +1,101 @@
++++
+title = 'Wordcloud'
+date = 2023-12-30T23:41:37+08:00
+draft = true
++++
+@[toc]
+作用是统计excel中出现频率较高的词汇，形成词云
+## 0.快速修改使用
+```
+0.1 修改对应的excel文件和其对应的列：59行修改excel文件名60行修改对应的列名
+0.2 77行 500 的意思是取出出现频率前500的词汇，这个可以修改，比如100就把500改成100
+```
+## 1.需要的库
+
+```
+pip install pandas pkuseg numpy matplotlib PIL wordcloud
+```
+pkuseg是一个分词器：https://github.com/lancopku/pkuseg-python 
+pandas,matplottlib,PIL 用来辅助作图，pandas中包含处理excel格式的函数
+wordcloud 用来生成词云
+numpy用来进行科学计算
+## 2.代码逻辑
+
+> 1.从excel表中读取所需要的文字
+> 2.采用分词器进行分词操作
+> 3.过滤一些没用的符号，单个词
+> 4.统计词频
+> 5.生成词云
+## 3.分块功能说明
+### 3.1统计词频
+
+```python
+def count_words(sp, n):
+    w = {}
+    for i in sp:
+        if i not in w:
+            w[i] = 1
+        else:
+            w[i] += 1
+    top = sorted(w.items(), key=lambda item:(-item[1], item[0]))
+    top_n = top[:n]
+    return top_n
+```
+输入分词后的结果，list格式。n为返回词频率由高到低前n的词。
+
+### 3.2过滤
+
+```python
+def filter_label(l):#过滤符号和单个词
+    temp=[]
+    for i in l:
+        if len(i)!=1 and i.find('nbsp')<0:
+            temp.append(i)
+    return temp
+```
+这部分可以根据自己需要修改，我主要是过滤掉符号，‘我，的，得’这些无意义的词，还有‘nbsp’。
+### 3.3生成词云
+这个地方坑比较多。我列举一下：
+
+> 1.根据词的频率生成词云，必须先做成字典格式
+> 2.需要自己读入文字格式文件，和自己选一张背景图，生成的词云将根据背景图来创建，不要自作聪明自己创建一个空的二维数组哈。
+3.我用的图片
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200114150135537.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpdTUwNjAzOTI5Mw==,size_16,color_FFFFFF,t_70)
+
+
+```python
+def DrawWordcloud(read_name):#生成词云
+    image = Image.open('back.jpg')#作为背景形状的图
+    graph = np.array(image)
+    #参数分别是指定字体、背景颜色、最大的词的大小、使用给定图作为背景形状
+    wc = WordCloud(font_path = 'simsun.ttc', background_color = 'White', max_words = 50, mask = graph)
+
+
+    # fp = pd.read_csv(read_name)#读取词频文件
+    # name = list(fp.name)#词
+    # value = fp.val#词的频率
+    name=[]
+    value=[]
+    for t in read_name:
+        name.append(t[0])
+        value.append(t[1])
+    for i in range(len(name)):
+      name[i] = str(name[i])
+    #   print(name[i])
+      #注意因为要显示中文，所以需要转码
+      name[i] = name[i].encode('gb2312').decode('gb2312')
+    dic = dict(zip(name, value))#词频以字典形式存储
+    print(dic)
+
+    wc.generate_from_frequencies(dic)#根据给定词频生成词云
+    image_color = ImageColorGenerator(graph)
+    plt.imshow(wc)
+    plt.axis("off")#不显示坐标轴
+    plt.show()
+    wc.to_file('Wordcloud.png')#保存的图片命名为Wordcloud.png
+```
+## 4.结果图
+![](https://raw.githubusercontent.com/liuzehao/PictureManager/master/lib/954191c3-0c4d-7bae-3282-83a427a47cd1.png)
+## 5.工程代码
+打包的所有文件，原谅我需要积分，放到csdn下载了：
+https://download.csdn.net/download/liu506039293/12103211
