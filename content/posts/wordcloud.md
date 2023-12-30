@@ -97,5 +97,5 @@ def DrawWordcloud(read_name):#生成词云
 ## 4.结果图
 ![](https://raw.githubusercontent.com/liuzehao/PictureManager/master/lib/954191c3-0c4d-7bae-3282-83a427a47cd1.png)
 ## 5.工程代码
-打包的所有文件，原谅我需要积分，放到csdn下载了：
-https://download.csdn.net/download/liu506039293/12103211
+打包的所有文件：
+https://github.com/liuzehao/wordcloud
