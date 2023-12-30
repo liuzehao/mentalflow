@@ -61,8 +61,7 @@ def filter_label(l):#过滤符号和单个词
 > 1.根据词的频率生成词云，必须先做成字典格式
 > 2.需要自己读入文字格式文件，和自己选一张背景图，生成的词云将根据背景图来创建，不要自作聪明自己创建一个空的二维数组哈。
 3.我用的图片
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200114150135537.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpdTUwNjAzOTI5Mw==,size_16,color_FFFFFF,t_70)
-
+![](https://raw.githubusercontent.com/liuzehao/PictureManager/master/lib/dcc5e87e-fb5d-bca5-83d9-294b60b2eda5.png)
 
 ```python
 def DrawWordcloud(read_name):#生成词云
