@@ -3,3 +3,9 @@ languageCode = 'en-us'
 title = 'mentalflow'
 theme = 'paperMod'
 googleAnalytics = 'G-NCDHNEYW02'
+
+[params.utteranc]
+    enable = true
+    repo = "liuzehao/mentalflowtalk"
+    issueTerm = "pathname"
+    theme = "github-light"
