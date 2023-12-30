@@ -1,9 +1,10 @@
 +++
 title = 'Wordcloud'
 date = 2023-12-30T23:41:37+08:00
-draft = true
+draft = false
 +++
-@[toc]
+
+
 作用是统计excel中出现频率较高的词汇，形成词云
 ## 0.快速修改使用
 ```
