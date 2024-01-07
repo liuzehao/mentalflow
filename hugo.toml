@@ -17,9 +17,9 @@ theme = ["FixIt"]
 # determines default content language ["en", "zh-cn", "fr", "pl", ...]
 defaultContentLanguage = "zh-cn"
 # language code ["en", "zh-CN", "fr", "pl", ...]
-languageCode = "en"
+languageCode = "zh-CN"
 # language name ["English", "简体中文", "Français", "Polski", ...]
-languageName = "English"
+languageName = "简体中文"
 # whether to include Chinese/Japanese/Korean
 hasCJKLanguage = false
 # default amount of posts in each pages
@@ -335,7 +335,7 @@ enableEmoji = true
   # FixIt 0.3.0 | NEW public Git repository information only then enableGitInfo is true
   [params.gitInfo]
     # e.g. "https://github.com/hugo-fixit/docs"
-    repo = ""
+    repo = "https://github.com/liuzehao"
     branch = "main"
     # the content directory path relative to the root of the repository
     dir = "content"
@@ -346,11 +346,11 @@ enableEmoji = true
   # App icon config
   [params.app]
     # optional site title override for the app when added to an iOS home screen or Android launcher
-    title = "FixIt"
+    title = "MENTAL FLOW"
     # whether to omit favicon resource links
     noFavicon = false
     # modern SVG favicon to use in place of older style .png and .ico files
-    svgFavicon = ""
+    svgFavicon = "https://raw.githubusercontent.com/liuzehao/PictureManager/master/lib/164844.png"
     # Safari mask icon color
     iconColor = "#5bbad5"
     # Windows v8-10 tile color
@@ -444,7 +444,7 @@ enableEmoji = true
     license = ""
     # FixIt 0.3.0 | NEW whether to show Hugo and theme info
     [params.footer.powered]
-      enable = true
+      enable = false
       hugoLogo = true
       themeLogo = true
     # FixIt 0.2.17 | CHANGED Site creation time
@@ -772,7 +772,7 @@ enableEmoji = true
         # bitcoin = "/images/bitcoin.png"
     # social share links in post page
     [params.page.share]
-      enable = true
+      enable = false
       Twitter = true
       Facebook = true
       Linkedin = false
@@ -1064,8 +1064,8 @@ enableEmoji = true
 
   # FixIt 0.2.14 | NEW GitHub banner in the top-right or top-left corner
   [params.githubCorner]
-    enable = false
-    permalink = "https://github.com/hugo-fixit/FixIt"
+    enable = true
+    permalink = "https://github.com/liuzehao"
     title = "View source on GitHub"
     position = "right" # ["left", "right"]
 
@@ -1085,7 +1085,7 @@ enableEmoji = true
 
   # FixIt 0.2.16 | NEW Reading progress bar
   [params.readingProgress]
-    enable = false
+    enable = true
     # Available values: ["left", "right"]
     start = "left"
     # Available values: ["top", "bottom"]
@@ -1098,7 +1098,7 @@ enableEmoji = true
   # FixIt 0.2.17 | NEW Progress bar in the top during page loading.
   # For more information: https://github.com/CodeByZach/pace
   [params.pace]
-    enable = false
+    enable = true
     # All available colors:
     # ["black", "blue", "green", "orange", "pink", "purple", "red", "silver", "white", "yellow"]
     color = "blue"
