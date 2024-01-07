@@ -1,0 +1,5 @@
+baseURL = 'https://mentalflow.pages.dev'
+languageCode = 'en-us'
+title = 'mentalflow'
+theme = 'FixIt'
+googleAnalytics = 'G-NCDHNEYW02'
