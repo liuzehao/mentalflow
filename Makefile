@@ -16,3 +16,6 @@ help:
 	@echo "Available targets:"
 	@echo "  new           - Create a new draft post"
 	@echo "  help          - Show this help message"
+
+dev:
+	hugo server -e production

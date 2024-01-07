@@ -39,17 +39,27 @@ enableEmoji = true
 # -------------------------------------------------------------------------------------
 
 [menu]
+ [[menu.main]]
+    identifier = "main"
+    pre = ""
+    post = ""
+    name = "主页"
+    url = "/"
+    title = ""
+    weight = 1
+    [menu.main.params]
+      icon = "fa-solid"
   [[menu.main]]
     identifier = "posts"
     # you can add extra information before the name (HTML format is supported), such as icons
     pre = ""
     # you can add extra information after the name (HTML format is supported), such as icons
     post = ""
-    name = "Posts"
+    name = "文章"
     url = "/posts/"
     # title will be shown when you hover on this menu link
     title = ""
-    weight = 1
+    weight = 2
     # FixIt 0.2.14 | NEW add user-defined content to menu items
     [menu.main.params]
       # add css class to a specific menu item
@@ -57,29 +67,29 @@ enableEmoji = true
       # whether set as a draft menu item whose function is similar to a draft post/page
       draft = false
       # FixIt 0.2.16 | NEW add fontawesome icon to a specific menu item
-      icon = "fa-solid fa-archive"
+      icon = "fa-solid"
       # FixIt 0.2.16 | NEW set menu item type, optional values: ["mobile", "desktop"]
       type = ""
   [[menu.main]]
     identifier = "categories"
     pre = ""
     post = ""
-    name = "Categories"
+    name = "分类"
     url = "/categories/"
     title = ""
-    weight = 2
+    weight = 3
     [menu.main.params]
-      icon = "fa-solid fa-folder-tree"
+      icon = "fa-solid"
   [[menu.main]]
     identifier = "tags"
     pre = ""
     post = ""
-    name = "Tags"
+    name = "标签"
     url = "/tags/"
     title = ""
-    weight = 3
+    weight = 4
     [menu.main.params]
-      icon = "fa-solid fa-tags"
+      icon = "fa-solid"
 
 # -------------------------------------------------------------------------------------
 # Related content Configuration
@@ -296,7 +306,7 @@ enableEmoji = true
   # NEW date format
   dateFormat = "2006-01-02"
   # website images for Open Graph and Twitter Cards
-  images = []
+  images = ["https://raw.githubusercontent.com/liuzehao/PictureManager/master/lib/164844.png"]
   # FixIt 0.2.12 | NEW enable PWA
   enablePWA = false
   # FixIt 0.2.14 | NEW whether to add external Icon for external links automatically
@@ -352,7 +362,7 @@ enableEmoji = true
 
   # Search config
   [params.search]
-    enable = false
+    enable = true
     # type of search engine ["algolia", "fuse"]
     type = "fuse"
     # max index length of the chunked content
@@ -392,9 +402,9 @@ enableEmoji = true
     # Header title config
     [params.header.title]
       # URL of the LOGO
-      logo = ""
+      logo = "https://raw.githubusercontent.com/liuzehao/PictureManager/master/lib/164844.png"
       # title name
-      name = ""
+      name = "MENTAL FLOW"
       # you can add extra information before the name (HTML format is supported), such as icons
       pre = ""
       # you can add extra information after the name (HTML format is supported), such as icons
@@ -667,7 +677,7 @@ enableEmoji = true
     # FixIt 0.2.15 | NEW Repost config
     [params.page.repost]
       enable = false
-      url = ""
+      url = "https://mentalflow.pages.dev/"
     # Table of the contents config
     [params.page.toc]
       # whether to enable the table of the contents
@@ -748,7 +758,7 @@ enableEmoji = true
       count = 5
     # FixIt 0.2.17 | NEW Donate (Sponsor) settings
     [params.page.reward]
-      enable = false
+      enable = true
       animation = false
       # position relative to post footer, optional values: ["before", "after"]
       position = "after"
@@ -756,8 +766,8 @@ enableEmoji = true
       # FixIt 0.2.18 | NEW display mode of QR code images, optional values: ["static", "fixed"], default: `static`
       mode = "static"
       [params.page.reward.ways]
-        # wechatpay = "/images/wechatpay.png"
-        # alipay = "/images/alipay.png"
+        wechatpay = "https://raw.githubusercontent.com/liuzehao/PictureManager/master/lib/wechat4321.jpg"
+        alipay = "https://raw.githubusercontent.com/liuzehao/PictureManager/master/lib/ali4323.jpg"
         # paypal = "/images/paypal.png"
         # bitcoin = "/images/bitcoin.png"
     # social share links in post page
