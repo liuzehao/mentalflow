@@ -8,7 +8,6 @@ POST_TITLE := "draft"
 
 # Targets and rules
 new:
-	ps aux | grep -v Visual | grep -v color | grep -v 'grep' | grep -v Xmind| grep -v 'eiis' | grep Electron.app || (echo "Executing eiis" && eiis)
 	hugo new content/posts/$(POST_TITLE).md
 
 # Help target
