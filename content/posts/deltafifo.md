@@ -6,7 +6,7 @@ tags= ["k8s","operator","开发","informer","client-go"]
 categories= ["k8s-operator开发"]
 +++
 ## 简介
-![20240114015320](https://cdn.jsdelivr.net/gh/liuzehao/PictureManager/lib/20240114015320.png)
+![20240114015320](https://cdn.jsdelivr.net/gh/liuzehao/PictureManager/lib/20240114015320.png)  
 [client-go 架构图](https://github.com/kubernetes/sample-controller/blob/master/docs/controller-client-go.md)
 
 github client-go项目:  
@@ -241,13 +241,13 @@ deltaFIFO := NewDeltaFIFO(podKeyFunc, podLister)
 
 ##  总结
 DeltaFIFO在我们编写operator的过程中扮演一个根据keyFunc整合操作的角色。我们回头来看一下官方定义就很清楚了:
-  - 您希望至多处理每个对象变更（delta）一次。
+  - 您希望至多处理每个对象变更（delta）一次。  
   这个是FIFO队列的作用
-  - 在处理对象时，您希望看到自上次处理以来发生的一切。
+  - 在处理对象时，您希望看到自上次处理以来发生的一切。  
   这个实现了keyFunc Pop函数带来的优势。可以根据keyFunc找到具体的资源，然后根据delta聚合返回处理。
 
   -  您希望处理一些对象的删除。  
   其实指的是knownObjects，后面再说
 
-  -  您可能希望定期重新处理对象。
+  -  您可能希望定期重新处理对象。  
   这个就是指的rsync函数
