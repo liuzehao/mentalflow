@@ -1,5 +1,5 @@
 +++
-title =  k8s client-go 系列(一) DeltaFIFO
+title = "k8s client-go 系列(1): DeltaFIFO"
 date = 2024-01-14T01:32:16+08:00
 draft = false
 tags= ["k8s","operator","开发","informer","client-go"] 
