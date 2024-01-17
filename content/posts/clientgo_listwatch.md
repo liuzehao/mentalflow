@@ -162,10 +162,10 @@ type ListWatch struct {
 	DisableChunking bool
 }
 ```
-实现了ListerWatcher interface  
+实现了ListerWatcher interface。在其中又包含了另外两个接口Watcher interface和Lister interface。也就是说只要实现了watcher和lister, 这个函数就可以用在任何的资源上。
 
 - 五种类型
-这个可能比较难找，在k8s.io/apimachinery/pkg/watch/watch.go里面
+这个可能比较难找，在k8s.io/apimachinery/pkg/watch/watch.go里面. 调用的地方在reflector那里，下一篇讲reflector的时候再说。
 ```golang
 const (
 	Added    EventType = "ADDED"
@@ -175,3 +175,12 @@ const (
 	Error    EventType = "ERROR"
 )
 ```
+- list和watch的本质
+其实就是两个url
+```
+curl --cacert /path/to/ca.crt https://127.0.0.1:6443/api/v1/namespaces/default/pods
+curl --cacert /path/to/ca.crt https://127.0.0.1:6443/api/v1/namespaces/default/pods \?watch\=true
+```
+要运行上面的curl需要把ca证书从kubeconfig里复制出来，默认路径在$HOME/.kube/config，注意需要base64解码。
+官方文档同样可以查看到：
+https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#list-list-or-watch-objects-of-kind-pod
