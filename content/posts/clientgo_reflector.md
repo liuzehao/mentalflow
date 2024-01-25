@@ -1,6 +1,6 @@
 +++
 title =  "k8s client-go 系列(3): Reflector"
-date = 2024-01-17T20:33:39+08:00
+date = 2024-01-18T20:33:39+08:00
 draft = false
 tags= ["k8s","operator","开发","informer","client-go"] 
 categories= ["k8s-operator开发"]
