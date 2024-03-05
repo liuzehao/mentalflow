@@ -1,7 +1,7 @@
 +++
 title = '虚无主义和现代青年'
 date = 2024-03-05T20:38:08+08:00
-draft = true
+draft = false
 tags= ["人生","虚无"] 
 categories= ["浮生半日"]
 +++
