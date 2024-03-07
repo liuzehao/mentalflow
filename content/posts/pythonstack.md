@@ -15,9 +15,45 @@ categories= ["技术总结"]
 本文将主讲第一和第二点，分解一下的话，主要有以下几个主题：
 1. click 命令封装
 2. subprocess多线程
-3. api发送和处理
-4. git-ci的编写
-5. poety打包
+3. requst api发送和处理
+4. 单元测试
+5. git-ci的编写
+6. poetry打包
 
 ## click
 [click](https://click.palletsprojects.com/en/8.1.x/)是一个命令行工具，可以用装饰器来创建命令行，并且可以很好的支持子命令的嵌套。
+
+
+## subprocess
+
+
+
+## poetry
+极力推荐用[poetry](https://python-poetry.org/)来构建项目，poetry并没有搞出新的概念，但是很好了集成了过去的功能。主要是三个功能：
+- 虚拟环境
+python各种不兼容的情况太多，是离不开虚拟环境的。poetry有类似于conda的功能, 可以隔离不同的开发环境，好处是不用额外安装别的虚拟环境工具。
+```shell
+poetry shell
+```
+- 依赖管理
+相比requirements.txt。更加的规范，并且可以通过lock来锁定配置。
+```shell
+poetry add 包名称
+poetry remove
+poetry update
+```
+
+- 打包发布
+```shell
+poetry build
+poetry publish
+```
+
+工作流：  
+创建新的项目：  
+poetry创建虚拟环境---> poetry init初始化--->通过poetry管理依赖，导入包--->通过poetry build---->通过poetry上传到pypi  
+引入旧项目：  
+poetry创建虚拟环境--->通过poetry install安装依赖--->开发  
+
+Demo:  
+[官方文档案例](https://python-poetry.org/docs/basic-usage/)  
