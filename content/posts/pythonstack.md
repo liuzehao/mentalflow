@@ -21,10 +21,11 @@ categories= ["技术总结"]
 6. git-ci的编写
    
 ## poetry
-极力推荐用[poetry](https://python-poetry.org/)来构建项目，poetry并没有搞出新的概念，但是很好了集成了过去的功能。主要是三个功能：
+极力推荐用[poetry](https://python-poetry.org/)来构建项目，poetry并没有搞出新的概念，但是很好的集成了过去的功能。主要是三个功能：
 - 虚拟环境
 python各种不兼容的情况太多，是离不开虚拟环境的。poetry有类似于conda的功能, 可以隔离不同的开发环境，好处是不用额外安装别的虚拟环境工具。
 ```shell
+poetry env use python
 poetry shell
 ```
 - 依赖管理
