@@ -533,7 +533,7 @@ enableEmoji = true
 
   # FixIt 0.2.16 | CHANGED Social config about the author
   [params.social]
-    GitHub = "https://github.com/liuzehao"
+    GitHub = "liuzehao"
     Linkedin = ""
     Twitter = ""
     Instagram = ""
@@ -603,7 +603,7 @@ enableEmoji = true
     QQ = ""
     QQGroup = "" # https://qun.qq.com/join.html
     Diaspora = ""
-    CSDN = "https://blog.csdn.net/liu506039293"
+    CSDN = "liu506039293"
     Discord = ""
     DiscordInvite = ""
     Lichess = ""
