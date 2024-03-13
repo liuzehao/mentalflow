@@ -2,8 +2,8 @@
 title =  "python技术栈"
 date = 2024-03-02T08:26:55+08:00
 draft = false
-tags= ["python","技术栈","sre"]
-categories= ["技术总结"]
+tags= ["python","python技术栈"]
+categories= ["python"]
 +++
 
 ## 前言

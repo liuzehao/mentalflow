@@ -2,8 +2,8 @@
 title = 'Golang技术栈'
 date = 2024-01-09T15:28:13+08:00
 draft = true
-tags= ["博客"]
-categories=["杂技浅尝","浮生半日"]
+tags= ["golang"]
+tags= ["golang","golang技术栈"]
 +++
 ## 前言
 目前我主攻golang。golang将作为主要的服务编写，所以会涵盖我所能接触的的绝大多数后端技术。另外，有两类问题我认为是超越语言的，不会在这里提及，一是关于代码设计模式和服务架构方面的问题，二是业务相关(包括通用的业务)，比如token登录这种问题。大类上分为以下类别：
@@ -16,7 +16,7 @@ categories=["杂技浅尝","浮生半日"]
 总结下来发现内容有点多，所以只做简单介绍。针对其中的某些容易反直觉的点，后面单开文章描述。
 
 - 测试： 单元测试，mock测试
-- CI/CD: github集成工具
+- CI: 持续集成工具
 - go-client: 适用于开发k8s operator的库
 - viper: config配置
 - gin: web框架
@@ -29,7 +29,6 @@ categories=["杂技浅尝","浮生半日"]
 - klog,glog: log库
 - sentry: 在线debug工具
 - swger,puml: 文档工具
-- golangci-lint： 静态代码分析
 
 ## 测试
 我觉得相比开发来说，测试是更加重要的。
@@ -42,4 +41,46 @@ Authorization: Bearer {{auth_token}}
 ```
 - Mock测试: mock测试对于接口测试非常重要。设想一个场景：我需要获取一份数据，但是数据来源有多个，这种情况下我们可能会先编写一个接口用来隔离具体获取数据源的struct。我们如何在不编写实际数据源获取的struct的情况下测试方发是否有效呢，就可以用mock了。
 
+## CI
+CI太重要了，第一是跟上面说的一样，可以很好的实现自动测试。此外，还可以配置一系列静态代码检查，格式化，检查函数复杂度等等。可以让我们的代码质量提升一个数量级。在多人开发系统中是必不可少的。
+- gitlab-ci
+可以根据stage来编写流水线，当然，实际使用要复杂的多。多数情况会结合makefile来使用。这个值得单开一篇blog来总结一下。
+```yml
+build-job:
+  stage: build
+  script:
+    - echo "Hello, $GITLAB_USER_LOGIN!"
 
+test-job1:
+  stage: test
+  script:
+    - echo "This job tests something"
+
+test-job2:
+  stage: test
+  script:
+    - echo "This job tests something, but takes more time than test-job1."
+    - echo "After the echo commands complete, it runs the sleep command for 20 seconds"
+    - echo "which simulates a test that runs 20 seconds longer than test-job1"
+    - sleep 20
+
+deploy-prod:
+  stage: deploy
+  script:
+    - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
+  environment: production
+```
+
+- golangci-lint
+golang的静态代码分析工具 ，第三方开发了大量的工具，举一些常例子：
+
+gocritic：gocritic 是一个 Go 代码静态分析工具，它提供了一系列检查，用于发现代码中的潜在问题和改进机会。
+gocognit：gocognit 是一个用于检测代码复杂度的工具，它会根据代码中的复杂性来提供建议。
+gomnd：gomnd 是一个用于检测魔法数字（magic number）的工具，它会发现代码中硬编码的数字，并提供建议将其提取为常量或者变量。
+gosec：gosec 是一个用于检测 Go 代码中安全问题的工具，例如常见的安全漏洞和代码缺陷。
+
+- pre-commit-config
+在项目开发中，我们都会使用到 git，因此我们可以将代码静态检查放在一个 git 触发点上，而不用每次写完代码手动去执行 golangci-lint run 命令。这里，我们就需要用到 git hooks。这个可以结合上面的golang-cli，实现在git commit的时候进行代码检查。
+
+
+## 文档编写工具
