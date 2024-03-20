@@ -557,7 +557,7 @@ enableEmoji = true
     Odnoklassniki = ""
     VK = ""
     Flickr = ""
-    Xing = "Liu18969285750"
+    Xing = ""
     Snapchat = ""
     Soundcloud = ""
     Spotify = ""
@@ -617,7 +617,7 @@ enableEmoji = true
     TryHackMe = ""
     Douyin = ""
     TikTok = ""
-    Phone = ""
+    Phone = "Liu18969285750"
     Email = "hao849272928@gmail.com"
     RSS = true
 
