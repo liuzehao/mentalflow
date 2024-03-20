@@ -329,7 +329,7 @@ enableEmoji = true
   [params.author]
     name = "Zehao Liu"
     email = "hao849272928@gmail.com"
-    link = "https://mentalflow.pages.dev/"
+    link = "https://mentalflowing.com/"
     avatar = "https://raw.githubusercontent.com/liuzehao/PictureManager/master/lib/13258781.jpeg"
 
   # FixIt 0.3.0 | NEW public Git repository information only then enableGitInfo is true
@@ -617,6 +617,7 @@ enableEmoji = true
     TryHackMe = ""
     Douyin = ""
     TikTok = ""
+    Wechat = "Liu18969285750"
     Phone = ""
     Email = "hao849272928@gmail.com"
     RSS = true
@@ -677,7 +678,7 @@ enableEmoji = true
     # FixIt 0.2.15 | NEW Repost config
     [params.page.repost]
       enable = false
-      url = "https://mentalflow.pages.dev/"
+      url = "https://mentalflowing.com/"
     # Table of the contents config
     [params.page.toc]
       # whether to enable the table of the contents
