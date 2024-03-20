@@ -1,7 +1,7 @@
 +++
 title = 'Golang技术栈'
-date = 2024-01-09T15:28:13+08:00
-draft = true
+date = 2024-03-20T18:38:13+08:00
+draft = false
 tags= ["golang"]
 categories= ["golang","golang技术栈"]
 +++
@@ -79,8 +79,8 @@ gocognit：gocognit 是一个用于检测代码复杂度的工具，它会根据
 gomnd：gomnd 是一个用于检测魔法数字（magic number）的工具，它会发现代码中硬编码的数字，并提供建议将其提取为常量或者变量。
 gosec：gosec 是一个用于检测 Go 代码中安全问题的工具，例如常见的安全漏洞和代码缺陷。
 
-- pre-commit-config
-在项目开发中，我们都会使用到 git，因此我们可以将代码静态检查放在一个 git 触发点上，而不用每次写完代码手动去执行 golangci-lint run 命令。这里，我们就需要用到 git hooks。这个可以结合上面的golang-cli，实现在git commit的时候进行代码检查。
-
+- [pre-commit](https://pre-commit.com/)
+在项目开发中，我们都会使用到 git，我们可使用git hook实现在git commit的时候进行代码检查。直接编写git hooks脚本，时间久了之后会比较乱，推荐使用pre-commit框架来方便管理。
+demo：请看官方案例，写的很不错
 
 ## 文档编写工具
