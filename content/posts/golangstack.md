@@ -13,7 +13,7 @@ categories= ["golang","golang技术栈"]
 4. 文档编写工具
 
 ## 0. 从功能角度看需要什么工具
-总结下来发现内容有点多，所以只做简单介绍。针对其中的某些容易反直觉的点，后面单开文章描述。
+总结下来发现内容有点多，所以只做简单介绍。针对其中的某些简单叙述不够或者文档未说明的点，后面单开文章描述。
 
 - 测试： 单元测试，mock测试
 - CI: 持续集成工具
@@ -44,7 +44,7 @@ Authorization: Bearer {{auth_token}}
 ## CI
 CI太重要了，第一是跟上面说的一样，可以很好的实现自动测试。此外，还可以配置一系列静态代码检查，格式化，检查函数复杂度等等。可以让我们的代码质量提升一个数量级。在多人开发系统中是必不可少的。
 - gitlab-ci
-可以根据stage来编写流水线，当然，实际使用要复杂的多。多数情况会结合makefile来使用。这个值得单开一篇blog来总结一下。
+可以根据stage来编写流水线，当然，实际使用要复杂的多。多数情况会结合makefile来使用。
 ```yml
 build-job:
   stage: build
@@ -82,5 +82,132 @@ gosec：gosec 是一个用于检测 Go 代码中安全问题的工具，例如�
 - [pre-commit](https://pre-commit.com/)
 在项目开发中，我们都会使用到 git，我们可使用git hook实现在git commit的时候进行代码检查。直接编写git hooks脚本，时间久了之后会比较乱，推荐使用pre-commit框架来方便管理。
 demo：请看官方案例，写的很不错
+推荐一些比较好的库：
+<details>
+  <summary>点我展开看案例</summary>
+  <pre><code>
+  repos:
+  <!-- 官方库,功能依次为: 
+  大文件检测
+  shell格式检测
+  symlinks检测
+  文件名冲突
+  git merge冲突
+  json,yaml,toml检查
+  私钥检查
+  文件结束符检查
+  BOM检测
+  禁止git submoudles
+  禁止部分brach的上传
+  文件行位空格检测 
+  -->
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0  # Use the ref you want to point at
+    hooks:
+      - id: check-added-large-files
+      - id: check-executables-have-shebangs
+        exclude: t/cmd/common.sh
+      - id: check-shebang-scripts-are-executable
+      - id: check-symlinks
+      - id: destroyed-symlinks
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-json
+      - id: check-yaml
+      - id: check-toml
+      - id: detect-private-key
+      - id: end-of-file-fixer
+        exclude: docs/swagger.json
+        exclude_types:
+          - svg
+      - id: fix-byte-order-marker
+      - id: forbid-submodules
+      - id: no-commit-to-branch
+        args:
+          - -b release
+          - -b master
+      - id: check-merge-conflict
+      - id: trailing-whitespace
+        args:
+          - --markdown-linebreak-ext=md
+
+<!-- 检查拼写错误 -->
+  - repo: https://github.com/crate-ci/typos
+    rev: typos-dict-v0.9.26
+    hooks:
+      - id: typos
+        exclude: .*.http|.mod|.token
+        exclude_types:
+          - json
+
+<!-- golang检查，功能依次为：
+go-fmt - Runs gofmt, requires golang
+go-vet - Runs go vet, requires golang
+go-lint - Runs golint, requires https://github.com/golang/lint but is unmaintained & deprecated in favour of golangci-lint
+go-imports - Runs goimports, requires golang.org/x/tools/cmd/goimports
+go-cyclo - Runs gocyclo, require https://github.com/fzipp/gocyclo, args参数指定了复杂度的阈值（-over=16）
+validate-toml - Runs tomlv, requires https://github.com/BurntSushi/toml/tree/master/cmd/tomlv
+no-go-testing - Checks that no files are using testing.T, if you want developers to use a different testing framework
+golangci-lint - run golangci-lint run ./..., requires golangci-lint
+go-critic - run gocritic check ./..., requires go-critic
+go-unit-tests - run go test -tags=unit -timeout 30s -short -v
+go-build - run go build, requires golang
+go-mod-tidy - run go mod tidy -v, requires golang
+go-mod-vendor - run go mod vendor, requires golang
+ -->
+  - repo: https://github.com/dnephin/pre-commit-golang
+    rev: v0.5.1
+    hooks:
+      - id: go-generate
+      - id: go-fmt
+      - id: go-imports
+      - id: go-vet
+      - id: go-mod-tidy
+      - id: go-cyclo
+        exclude: ^pkg/
+        args: [ -over=16 ]
+      - id: golangci-lint
+
+<!-- 检查markdown语法 -->
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.34.0
+    hooks:
+      - id: markdownlint
+        exclude: docs/swagger.md
+      - id: markdownlint-fix
+        exclude: docs/swagger.md
+
+<!-- 这个很有意思，指定了commit messages的格式 -->
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v2.2.0
+    hooks:
+      - id: conventional-pre-commit
+        stages:
+          - commit-msg
+        args: # optional: list of Conventional Commits types to allow e.g. [feat, fix, ci, chore, test]
+          - feat
+          - fix
+          - ci
+          - chore
+          - test
+          - refactor
+          - build
+          - release
+          - revert
+          - perf
+          - docs
+          - typo
+          - style
+  
+<!-- git commit 规范messages语法 -->
+  - repo: https://github.com/jorisroovers/gitlint
+    rev: v0.19.1
+    hooks:
+      - id: gitlint
+        stages:
+          - commit-msg
+
+  </code></pre>
+</details>
 
 ## 文档编写工具
