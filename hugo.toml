@@ -768,7 +768,7 @@ enableEmoji = true
       [params.page.reward.ways]
         wechatpay = "https://raw.githubusercontent.com/liuzehao/PictureManager/master/lib/wechat4321.jpg"
         alipay = "https://raw.githubusercontent.com/liuzehao/PictureManager/master/lib/ali4323.jpg"
-        paypal = "/images/paypal.png"
+        # paypal = "/images/paypal.png"
         # bitcoin = "/images/bitcoin.png"
     # social share links in post page
     [params.page.share]

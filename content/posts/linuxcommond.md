@@ -1,5 +1,5 @@
 +++
-title = 'Linux实用命令手册'
+title = 'Linux实用命令手册(一)'
 date = 2024-01-19T11:34:54+08:00
 draft = false
 +++
@@ -32,16 +32,16 @@ draft = false
 - head  
     >1. head -n 就是前几行  
     >2. tail -n 是最后几行，和head相对应的
-- cut 
+- cut  
    >1. cut -d ':' -f 2-  
    -d就是以什么作为分割，-f就是field,要显示哪些分割后的部分, 2-就是第二个后面都显示  
    >2. 特殊情况，制表符分割要用$:  
    cut -d $'\t'
-- grep 
+- grep  
   >1. grep 过滤出关键词   
   >2. grep -v 不要这个关键词
 
-- sort 部分排序
+- sort 部分排序  
   > 1. sort -k5,5n  
    `-k 5,5`: 这部分指定了要排序的字段范围。在这个例子中，`2,2` 表示只考虑第二个字段，n代表看成数字  
   > 2. sort -S 500M --parallel=4 -T   
@@ -71,7 +71,7 @@ draft = false
   >默认不装，需要安装一个
 - find递归目录查文件  
   >  find /path/to/search -type f -name "filename"  
-  这是最难记的一个，还好使用频率不高
+  这个还支持正则，很强大，可能有点难记
   
 基本这三个就够了，当然还有别的，建议慢慢来。
 
@@ -115,19 +115,117 @@ cpu通常不太会出问题。现在的服务器都是多核，单核被打满�
 网络和网卡的问题其实不容易排查，尤其是企业中网络情况往往很复杂，结合linux在下面来单独的说说
 
 ## Linux知识相关命令
-这部分是涉及到linux系统的问题，都是非常常见的情况，如果不知道或者现场调试的时候忘了怎么写，会非常容易场面尴尬, 必须烂熟于心。
+这部分是涉及到linux系统的问题，都是可能的情况。我知道有的比较小众，就算是偏操作的sre也不是每个都遇到过。但是相信我，如果不知道或者现场调试的时候忘了怎么写，场面会非常尴尬, 属于不一定会用到但是最好知道的。
 
 ### linux文件类型
-linux有以下的文件类型：
-普通文件
-符号链接
-目录
-字符设备
-块设备
-套接字
-FIFO
+linux有以下的文件类型：  
+普通文件 -  
+符号链接 l  
+目录    d  
+字符设备 c  
+块设备   b  
+套接字   s  
+FIFO    p  
 ### linxu文件权限
+- 权限查看  
+linux的文件权限按所有权分成三种, user/user group/others,根据权限类型大致有读/写/执行三种。
+```shell
+root@evm-1tjx7oledn8hjsc9k4v4hqft8:/tmp# ls -al
+total 1260928
+drwxrwxrwt 22 root root     12288 Apr  1 15:05 .
+drwxr-xr-x 20 root root      4096 Feb 23 13:12 ..
+drwx------  2 root root      4096 Mar 26 14:48 ansible-tmp
+-rw-r--r--  1 root root        10 Jan 16 11:20 dctest
+```
+通过文件前面的10个字符来描述，第一个是文件类型。后面的代表了权限，也可以用数字来表述：  
+r: 4  
+w: 2  
+x: 1  
+还有两种特殊权限：  
+粘滞位: 目录有一个叫作粘滞位（sticky bit）的特殊权限。如果目录设置了粘滞位，只有创建该目录
+的用户才能删除目录中的文件，就算用户组和其他用户也有写权限，仍无能无力。粘滞位出现在
+其他用户权限组中的执行权限（x）位置。它使用T或t来表示。如果没有设置执行权限，但设置
+了粘滞位，就使用T；如果同时设置了执行权限和粘滞位，就使用t。  
+
+setuid: setuid（Set User ID）是一种特殊的权限设置，它允许用户在执行某个二进制文件(必须是二进制，shell不行)时临时拥有该程序所有者的权限。它会取代user组中的x,比如:  
+```shell
+-rwsr-xr-x 1 root root 12345 Apr  1 10:00 /bin/my_special_program
+```
+- 权限设置  
+1. 设置文件所有权：
+```shell
+chown user:group filename  
+```
+
+1. 设置文件权限
+chmod a+t directory_name -R  
+比如：  
+```shell
+chmod 777 . -R  
+-R是递归修改  
+```
+
+- 文件拓展属性
+在所有的Linux文件系统中都可以设置读、写、可执行以及setuia权限。除此之外，扩展文
+件系统（例如ext2、ex13、ext4）还支持其他属性。以不可修改文件为例：
+```shell
+chattr +i file  
+```
+当想要修改的时候  
+```shell
+rm file
+LM: cannot remove Ifile': Operation not permitted
+```
+如果要修改必须要先取消  
+```shell
+chattr -i file  
+```
+要查看是否设置了  
+```shell
+lsattr file
+比如：
+lsattr  zkkk.sh
+----i---------e----- zkkk.sh
+```
+这个i就是不可修改
+
 ### linux文件软连接和硬连接
+- 软连接
+```shell
+$ ln -s target symbolic_link_name
+例如：
+$ ln -1 -s /var/www/ ~/web
+```
+这个命令在当前用户的主目录中创建了一个名为Web的符号链接。该链接指向/var/www。
+使用下面的命令来验证链接是否已建立：
+```shell
+$ 1s -l web
+lrwxrwxrwx 1 root rrot 8 2024-01-25 21:34 web一>/var/www
+web一>/var/www表明web指向 /var/www
+```
+
+- 硬链接
+创建：  
+```shell
+ln /path/to/target /path/to/link
+```
+查看方式跟软连接是一样的：  
+软链接以 l 字符开头，表示它是一个软链接。  
+硬链接以 - 字符开头，表示它是一个普通的文件，也就是硬链接。  
+
+软连接相对来说更加常用一点，有个八股题：软连接和硬链接有什么区别？  
+单个人理解这个问题其实非常好，直至linux文件系统的设计方式，在这里说有点啰嗦了，放到本文的(二)中。千万别认为不理解这个不重要，本人遇到过事故，就是由于对文件系统理解有问题导致的。  
+
 ### linux环境变量
+
+
 ### linux网络基本
 ### linux网络高阶
+
+
+## 练习方法
+总结了这一堆之后，剩下的就是练习了。我的理念是学、练分离，学要多花时间理解背后的含义，不要尝试任何记忆。练分成两部分，一是把这个当个重要的事情狠狠背一把，然后就是想办法关联到实际场景。可以借用chatgpt,比如：
+```
+我在linu命令，请利用wc、head、cut、grep、sort、uniq、awk出一些竟可能复杂的题目，并给我答案
+```
+建议每个月都抽一天，先找找博客有没有什么新鲜的不知道的新技巧补充到这个知识体系里，然后跟chatgpt对干几题，确保不会遗忘。
