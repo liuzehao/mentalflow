@@ -1,9 +1,9 @@
 +++
-title = 'python统计excel中出现频率较高的词汇形成词云'
+title = '[实践]python统计excel中出现频率较高的词汇形成词云'
 date = 2023-12-30T23:41:37+08:00
 draft = false
 tags= ["python","wordcloud","词云","分词","词频"]
-categories=["杂技浅尝"]
+categories=["打湿双手"]
 +++
 
 ## 0.快速修改使用

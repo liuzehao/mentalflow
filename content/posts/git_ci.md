@@ -1,5 +1,5 @@
 +++
-title = 'Gitlab CI'
+title = '[杂技浅尝]Gitlab CI'
 date = 2024-03-13T20:27:11+08:00
 draft = true
 tags= ["git","CI","CICD"]

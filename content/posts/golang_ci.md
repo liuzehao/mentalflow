@@ -1,5 +1,5 @@
 +++
-title = 'Golang CI'
+title = '[杂技浅尝]Golang CI'
 date = 2024-03-13T20:27:11+08:00
 draft = true
 tags= ["golang","golang技术栈","golang CI","CICD"]

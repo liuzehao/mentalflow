@@ -1,9 +1,9 @@
 +++
-title = "k8s client-go 系列(1): DeltaFIFO"
+title = "[深入理解]k8s client-go 系列(1): DeltaFIFO"
 date = 2024-01-14T01:32:16+08:00
 draft = false
-tags= ["k8s","operator","开发","informer","client-go"] 
-categories= ["k8s-operator开发"]
+tags= ["k8s-operator开发","开发","informer","client-go"] 
+categories= ["源码解析"]
 +++
 ## 写在前面
 刚毕业我就觉得crud是一件很无聊的事情。作为sre可以摆脱crdu, 可是平时的工作无非是监控，告警，迁移，部署，排查问题。三年了，这些东西都搞腻味了，从技术品味上说，什么是有趣的？我感觉k8s开发算是少有的有点技术含量，且可以玩的深一点的东西了。通过operator的开发我们可以将部署从playbook，手工部署解放出来。其中积累的能力在自动化告警处理，运维操作自动化上更是大有可为。个人感觉是未来的大势所趋。  

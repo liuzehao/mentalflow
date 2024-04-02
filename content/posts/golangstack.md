@@ -1,9 +1,9 @@
 +++
-title = 'Golang技术栈'
+title = '[总结]Golang技术栈'
 date = 2024-03-20T18:38:13+08:00
 draft = false
 tags= ["golang"]
-categories= ["golang","golang技术栈"]
+categories= ["打湿双手"]
 +++
 ## 前言
 目前我主攻golang。golang将作为主要的服务编写，所以会涵盖我所能接触的的绝大多数后端技术。另外，有两类问题我认为是超越语言的，不会在这里提及，一是关于代码设计模式和服务架构方面的问题，二是业务相关(包括通用的业务)，比如token登录这种问题。大类上分为以下类别：

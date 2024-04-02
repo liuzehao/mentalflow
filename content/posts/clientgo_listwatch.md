@@ -1,9 +1,9 @@
 +++
-title =  "k8s client-go 系列(2): List&Watch"
+title =  "[深入理解]k8s client-go 系列(2): List&Watch"
 date = 2024-01-17T23:19:43+08:00
 draft = false
-tags= ["k8s","operator","开发","informer","client-go"] 
-categories= ["k8s-operator开发"]
+tags= ["k8s-operator开发","开发","informer","client-go"] 
+categories= ["源码解析"]
 +++
 ## 简介
 ![20240114015320](https://cdn.jsdelivr.net/gh/liuzehao/PictureManager/lib/20240114015320.png)  
