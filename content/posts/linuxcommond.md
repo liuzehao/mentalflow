@@ -1,5 +1,5 @@
 +++
-title = '[手册]Linux实用命令手册(一)'
+title = '[手册]Linux实用命令(一)'
 date = 2024-01-19T11:34:54+08:00
 draft = false
 tags= ["linux"]
