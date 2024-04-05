@@ -1,7 +1,7 @@
 +++
 title =  "[手册]记录一次ssh调试过程"
 date = 2024-03-01T07:55:35+08:00
-draft = false
+draft = true
 tags=["linux","tcpdump","iptables","ssh","Jenkins"] 
 categories=["奇淫巧技"]
 +++
