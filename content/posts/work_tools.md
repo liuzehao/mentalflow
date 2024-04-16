@@ -15,7 +15,7 @@ categories= ["杂技浅尝"]
 具体使用可以参考[python技术栈](https://mentalflowing.com/posts/pythonstack/)
 
 ## shell脚本
-python试一把利器，但有的简单的需求用python有小题大做的嫌疑。可以采用shell脚本，shell脚本的使用除了
+python试一把利器，但有的简单的需求用python有小题大做的嫌疑。可以采用shell函数，然后把函数放置系统环境变量中,如果你会环境变量还不太清楚可以查看[[手册]Linux实用命令(一)](https://mentalflowing.com/posts/linuxcommond/)。这样我们就可以调用函数来处理一些问题了。比如：
 
 
 ## popclip
