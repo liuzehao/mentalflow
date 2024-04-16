@@ -114,14 +114,80 @@ categories= ["杂技浅尝"]
 ### 内存
 常见的就是内存爆了
 > top  
-可以看到是哪个进程干爆了内存
-### cpu
-> top  
-cpu通常不太会出问题。现在的服务器都是多核，单核被打满不会影响别的。
+可以看到是哪个进程干爆了内存  
+还有dstat、 perf、 vmstat 和swapon  
+>
+
+### cpu 
+cpu通常不太会出问题。现在的服务器都是多核，单核被打满不会影响别的。常用工具有：  
+top、 dstat、 perf、 ps、 mpstat、 strace和ltrace  
+
+> perf是值得提一下的，可以用这个生成cpu运行时火焰图，在排查问题的时候有很好的效果
+```shell
+#!/bin/bash
+
+# param1 perf file name
+
+PERF_DATA_PATH=/tmp/perf_data
+
+PERF_FILE=$1
+if [ -z "${PERF_FILE}" ]; then
+    PERF_GZFILE=`cd ${PERF_DATA_PATH} && ls  | grep "perf.gz" | tail -n 1`
+    PERF_FILE=`echo "${PERF_GZFILE}" | sed 's/\.gz//'`
+else
+    PERF_GZFILE=${PERF_FILE}.gz
+fi
+
+LANIP=`hostname -I | awk '{print $1}'`
+PERF_SVG=${LANIP}-${PERF_FILE}.svg
+echo "PERF FILE:${PERF_FILE}"
+
+if [ -z "${PERF_FILE}" ]; then
+    echo "invalid perf file"
+    exit 1
+fi
+
+FG_PATH=/usr/local/FlameGraph
+PERF_GZFILE_PATH=${PERF_DATA_PATH}/${PERF_GZFILE}
+PERF_FILE_PATH=${PERF_DATA_PATH}/${PERF_FILE}
+
+cd /tmp
+if [ -f ${PERF_GZFILE_PATH} ]; then
+    cp -av ${PERF_GZFILE_PATH} /tmp
+    rm -f ${PERF_FILE}
+    gunzip ${PERF_GZFILE}
+    ls -l ${PERF_FILE}
+else
+    cp -av ${PERF_FILE_PATH} /tmp
+fi
+
+if [ ! -d ${FG_PATH} ]; then
+    cd /usr/local
+		git clone --depth 1 https://github.com/brendangregg/FlameGraph
+fi
+
+PERF_BIN=$(which perf)
+if [ -z "$PERF_BIN" ]; then
+  PERF_BIN=/usr/lib/linux-tools/"$(uname -r)"/perf
+fi
+
+cd ${FG_PATH}
+${PERF_BIN} script -i /tmp/${PERF_FILE} | ./stackcollapse-perf.pl | ./flamegraph.pl > /tmp/${PERF_SVG}
+
+ls -l /tmp/${PERF_SVG}
+
+rm -f /tmp/${PERF_FILE} /tmp/${PERF_GZFILE}
+
+echo "download cmd:"
+
+echo "scp ${LANIP}:/tmp/${PERF_SVG} ."
+```
 
 ### 系统日志
 > dmesg -T  
 这个日志是从内核环形缓冲区中获得的。硬件相关的问题很多会记录在这里，常见比如cpu温度过高，网卡flapping，外接设备插拔等。
+
+
 
 ### 网络和网卡
 > ifconfig  
@@ -246,14 +312,18 @@ ln /path/to/target /path/to/link
 ifconfig wlan0 192.168.0.80  netmask 255.255.252.0  
 ifconfig eth0 hw ether 00:1c:bf:87:25:d5  
 有人可能奇怪mac地址不是网卡自带的嘛？为什么可以修改，其实不论是网卡地址还是ip都是记录在内核的一个表中，这使得mac地址修改是可能的。  
-2. ip 这个命令和ifconfig其实差不多。  
+2. ip 这个命令在端口操作上和ifconfig其实差不多。  
 添加和删除端口ip是这样的:
 ip add add 192.168.1.10/24 dev eth0
 ip add del 192.168.1.10/24 dev eth0
 
-- 路由: route  
+- 路由: route和ip  
 route -n用来查看路由表，也可以添加路由  
-route add default gw 192.168.0.1 wlan0
+route add default gw 192.168.0.1 wlan0  
+ip route也可以
+
+- arp表：ip
+ip neighbor命令  
 
 - 端口: lsof和netstat
 lsof(list open files)看上去是个文件相关的命令，但是linux“一切皆文件”(逻辑怪表示很舒服)。每个网络连接都会生成一个文件描述符，所以这个命令选项-i可以支持查看端口。  
