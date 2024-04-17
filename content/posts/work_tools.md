@@ -1,7 +1,7 @@
 +++
 title = '[手册]效率工具'
 date = 2024-04-16T15:14:36+08:00
-draft = true
+draft = flase
 tags= ["效率","工具","popclip","油猴"]
 categories= ["杂技浅尝"]
 +++
