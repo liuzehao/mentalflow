@@ -56,7 +56,7 @@ categories= ["杂技浅尝"]
   统计相同行，通常用于查出ip之后统计高频的, 常常跟sort一起用
 
 - awk  
-  awk本来最复杂，但只要学几个简单用法就行。
+  awk本来最复杂，但可以先学几个简单用法。  
   >1.  awk 提取列  
  awk '{print $1, $3}' logfile.log
   >2. 提取关键字error的行  
@@ -80,6 +80,8 @@ categories= ["杂技浅尝"]
   tr '[:digit:]' 'X' < input.txt > output.txt  
   小写转大写:
   tr '[:lower:]' '[:upper:]'
+  换行符替换所有的非字符(数字+单词)，方便后续处理
+  tr -cs '[:alnum:]' '['\n*']'
 ### 查找
 - grep 
   >grep -rni 关键字  
