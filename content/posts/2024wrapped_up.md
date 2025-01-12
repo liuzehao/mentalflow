@@ -1,7 +1,7 @@
 +++
 title = '再见2024年'
 date = 2025-01-12T16:18:35+08:00
-draft = true
+draft = false
 tags= ["2024","年终总结","2025","新年展望"]
 categories=["浮日闲谈"]
 +++
